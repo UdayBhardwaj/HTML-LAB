@@ -1,0 +1,148 @@
+
+Admin Dashboard – Test Cases & Styling Guide
+
+
+
+ **1. Theme Switch (Dark Mode)**
+
+* **What it does:** A checkbox lets you flip between Light Mode and Dark Mode.
+
+* **What to check:**
+
+  * **Light Mode (default):**
+
+    * Header & Footer: Green (`rgb(56, 201, 56)`)
+    * Nav: Gray (`rgb(113, 111, 111)`)
+    * Main area: White
+  * Dark Mode (checked):
+
+    * Header & Footer: Dark gray (`rgb(113, 111, 111)`)
+    * Nav: Light gray (`rgb(244, 236, 236)`)
+    * Main area: Very dark gray (`rgb(40, 39, 39)`)
+
+* Passes if:
+
+  * Clicking the "Dark Mode" label toggles the theme instantly.
+  * Colors update exactly as above.
+
+* Fails if:
+
+  * Clicking outside the label does nothing.
+  * Layout breaks or colors don’t switch.
+
+---
+
+ **2. Layout & Responsiveness**
+
+* What it does: Uses CSS Grid to create a neat layout:
+
+  * Left column: Navigation (200px fixed width)
+  * Right column: Main content (adjusts to fit)
+  * Top row: Header (150px tall, spans across both columns)
+  * Bottom row: Footer (100px tall, also spans both columns)
+
+* *asses if:
+
+  * The nav stays o the left, main content fills the rest.
+  * Header and footer stretch across the screen evenly.
+  * Everything still lines up after resizing the brwser.
+
+* Fails if:
+
+  * Nav overlaps the main content.
+  * Header/footer shift out of place when resizing.
+
+---
+
+ **3. Navigation Links**
+
+* What it does:** Displays links (“Home”, “Users”, “Settings”) in a vertical column.
+
+* Passes if:
+
+  * All links are vsible in both Light and Dark Mode.
+  * Background color updates with the theme.
+
+* Fails if:
+
+  * Any link is cut off or disappears.
+  * Background color doesn’t change after toggling.
+
+---
+
+**4. Main Content Area**
+
+* **What it does:** Shows “Welcome, Admin!” and a placeholder text for reports, charts, etc.
+
+* Passes if:
+
+  * Text is readable in both Light and Dark Mode.
+  * Area resizes correctly with the browser.
+
+* Fails if:
+
+  * Background stays stuck in one color after toggling.
+  * Text is hidden or overflowing out of the grid.
+
+---
+
+**CSS Styling Breakdown**
+
+ Theme Variables (\:root
+Purpose: Set up color “shortcuts” that change depending on the theme.
+Defaults (Light Mode):
+
+  Header/Footer: Green
+  Nav: Gray
+  Main: White
+
+---
+
+Dark Mode (input\:checked \~ .dashboard)
+
+ When checkbox is checked:
+
+  Header/Footer: Dark gray
+  Nav: Light gray
+  Main: Dark gray
+
+
+Header
+
+ Flex layout to space out the title and the Dark Mode toggle.
+ Uses the theme’s header color.
+
+---
+
+ Navigation Sidebar
+
+ Always fixed to the left.
+ Background color changes with theme.
+
+---
+Main Content
+
+Holds the dashboard’s core info.
+
+---
+
+Footer
+
+ Spans across the bottom of the page.
+ Text is centered.
+ Uses the theme’s footer color.
+
+**Hidden Checkbox (#theme-switch)**
+
+The actual toggle is hidden
+
+---
+
+Learning Outcomes
+
+1. Using **CSS Grid** for a clean, responsive layout.
+2. Implementing **Light/Dark mode** with CSS variables.
+3. Writing **UI test cases** to confirm behavior.
+4. Spotting and fixing CSS property mistakes.
+
+
