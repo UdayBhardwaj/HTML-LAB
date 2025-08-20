@@ -1,0 +1,87 @@
+Live Character Counter
+---
+
+1. Feature Overview
+
+* Goal: Provide instant feedback on how many characters a user has entered in a textarea
+* How it works:
+  * The counter increases or decreases immediately as the user types
+  * Each textarea updates its own counter independently
+
+Successful when:
+
+* The number shown always matches the text length.
+* Multiple counters function separately and correctly.
+
+Unsuccessful when:
+
+* The counter does not refresh in real time.
+* Initial values are not reflected at page load.
+
+---
+
+2. Layout & Positioning
+
+* Goal: counter boxes are neatly displayed and easy to view.
+* How it works:
+
+  * Boxes are arranged vertically in the page.
+  
+
+Successful when:
+* Content scales properly without overlap or clipping.
+
+Unsuccessful when:
+
+* Elements drift away .
+* Boxes break or msalign on smaller devices.
+
+---
+
+3. Visual Styling
+
+* Goal: Maintain a clean and consistent user interface.
+* How it works:
+
+  * Each counter box has a clear border, padding, and margin.
+  * Counter text is bold, visible, and easy to read.
+
+Successful when:
+
+* All boxes look uniform and structured.
+* Counter text is clear and accessible.
+
+Unsuccessful when:
+
+* Borders vanish or spacing is uneven.
+* Counter text blends in or becomes unreadable.
+
+---
+
+4. Script Behavior
+
+* Goal: Keep the logic reusable, efficient, and responsive.
+* How it works:
+
+  * A single function (`updateCounter()`) manages all counters.
+  * The `input` event ensures instant updates for every change.
+  * Counts are initialized correctly when the page loads.
+
+Successful when:
+
+* Every textarea has its own working counter.
+* Updates appear instantly without delay.
+
+Unsuccessful when:
+
+* Counter fails for one or more textareas.
+* Updates lag or display incorrect values.
+
+---
+
+Key Takeaways
+
+1. Capturing real-time input events with JavaScript.
+2. Building reusable functions for scalable features.
+3. Applying CSS centering for neat layouts.
+4. Writing structured test cases to validate dynamic UI behavior.
