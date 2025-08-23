@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dynamic Product Filter</title>
+</head>
+<body>
+  <h1>Product List</h1>
+  <label for="category">Filter by Category:</label>
+  <select id="category">
+    <option value="all">All</option>
+    <option value="shoes">Shoes</option>
+    <option value="shirts">Shirts</option>
+    <option value="gadgets">Gadgets</option>
+  </select>
+
+  <ul id="product-list">
+    <li data-category="shoes">Running Shoes</li>
+    <li data-category="shirts">Casual Shirt</li>
+    <li data-category="gadgets">Smartphone</li>
+    <li data-category="gadgets">Headphones</li>
+    <li data-category="shoes">Sneakers</li>
+    <li data-category="shirts">Formal Shirt</li>
+  </ul>
+
+  <script>
+    const categorySelect = document.getElementById('category');
+    const products = document.querySelectorAll('#product-list li');
+
+    categorySelect.addEventListener('change', function() {
+      const selected = this.value;
+      products.forEach(product => {
+        if (selected === 'all' || product.dataset.category === selected) {
+          product.style.display = 'list-item';
+        } else {
+          product.style.display = 'none';
+        }
+      });
+    });
+  </script>
+</body>
+</html>
+
