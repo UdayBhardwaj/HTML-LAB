@@ -1,0 +1,102 @@
+Interactive SVG Drawing Tool with Mouse Event Handlers: Test Cases & Styling Guide
+This document outlines the functionality, expected behavior, and styling approach for the SVG Drawing Tool.
+
+1. Drawing Shapes with Mouse Events
+
+Test Case
+User clicks and drags inside the SVG area.
+
+Expected Behavior
+
+On mousedown, a rectangle starts at the mouse position.
+On mousemove, the rectangle expands to follow the cursor.
+On mouseup, the rectangle is finalized and remains on the canvas.
+
+Passes if:
+
+Rectangle grows or shrinks as the mouse moves.
+Shape remains visible after mouse release.
+
+Fails if:
+
+No shape appears.
+Shape disappears after drawing ends.
+
+Drawing continues without releasing the mouse.
+
+2. Multiple Shapes
+
+Test Case
+User repeats the click-and-drag action multiple times.
+
+Expected Behavior   
+
+Each new drag creates a new independent shape.
+Previous shapes remain unchanged.
+
+Passes if:
+
+More than one shape can exist.
+Shapes do not overwrite each other.
+
+Fails if:
+
+Only one shape can be drawn.
+New shape replaces the old one.
+
+3. Initial State
+
+Test Case
+When the page loads.
+
+Expected Behavior
+
+The SVG canvas is empty.
+
+Passes if:
+
+Canvas shows no shapes.
+
+Fails if:
+
+Shapes appear automatically before any interaction.
+
+4. User Interaction
+
+Test Case
+Interaction flow while drawing.
+
+Passes if:
+
+Drawing feels smooth.
+Shapes follow cursor in real time.
+No reloads are required.
+
+Fails if:
+
+Drawing is laggy.
+Shapes snap incorrectly or don’t match cursor movement.
+
+CSS Styling Breakdown
+
+Canvas (SVG area):
+
+Border: 2px solid #333
+Background: light gray for visibility
+Fixed size around 600x400px
+Shapes (rectangles):
+Stroke: solid black border
+Fill: semi-transparent blue (rgba(0,0,255,0.3))
+
+Layout:
+
+Centered canvas on the page
+Heading “SVG Drawing Tool” placed above the canvas
+Container with padding for spacing
+
+Learning Outcomes
+
+Understand how mouse events (mousedown, mousemove, mouseup) are used for interactivity.
+Learn to dynamically create and manipulate SVG elements using JavaScript.
+Gain experience in implementing real-time visual updates without page reloads.
+Practice styling and structuring an interactive tool with HTML, CSS, and SVG
