@@ -1,0 +1,52 @@
+ProductCard Component Using Props
+
+Title
+ProductCard Component Using Props
+
+Objective
+The aim of this task is to create a reusable React component that can dynamically display product details using props. This helps in understanding how to pass data from a parent component to a child component and render it without altering the component structure.
+
+Task Description
+In this task, a custom component named ProductCard is built. The component accepts three props:
+
+- name → The product’s name.
+- price → The product’s price.
+- inStock → The availability status of the product.
+
+The ProductCard is styled to look like a simple product card with a name in bold, price, and stock status clearly shown. The App component renders multiple ProductCard components by passing different product data through props. This demonstrates how a single component can be reused to display various products without modifying the component code itself.
+
+Implementation Details
+
+1. ProductCard.jsx
+   - Accepts name, price, and inStock as props.
+   - Displays them inside a styled card layout.
+   - Uses conditional rendering to show “In Stock” in green or “Out of Stock” in red.
+
+2. ProductCard.css
+   - Styles each card with borders, padding, shadow, and rounded corners.
+   - Uses different text colors for stock status.
+
+3. App.jsx
+   - Contains an array of product objects.
+   - Uses .map() to loop through the array and render multiple ProductCard components.
+   - Displays all products inside a bordered container with a heading “Products List”.
+
+4. App.css
+   - Adds styling for the container and arranges product cards using Flexbox.
+   - Ensures that the layout looks clean and well-aligned, similar to a product catalog.
+
+Expected Output
+When the code is executed, the browser displays:
+
+- A container with the heading “Products List”.
+- Multiple product cards arranged side by side.
+- Each card shows product name, price, and stock status.
+- Stock availability is shown in green (In Stock) or red (Out of Stock).
+
+This design ensures the component is reusable, dynamic, and easy to maintain.
+
+Learning Outcome
+- Understanding of React props and how they allow data to flow from parent to child components.
+- Practical experience in conditional rendering based on props.
+- Implementation of modular and reusable UI components in React.
+- Basic styling with CSS and layout management using Flexbox.
