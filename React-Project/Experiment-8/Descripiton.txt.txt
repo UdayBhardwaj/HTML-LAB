@@ -1,0 +1,40 @@
+Library Management System Using React
+
+Objective
+To build a simple Library Management application using React that allows users to add, search, and remove books dynamically.
+
+Task Description
+This project demonstrates the use of React state and event handling. The app manages a collection of books, where each book has a title and an author. Users can:
+
+- Search books by title or author.
+- Add a new book by entering its title and author.
+- Remove an existing book from the list.
+
+The application updates the list dynamically without refreshing the page.
+
+Implementation Details
+1. App.jsx
+   - Uses useState to store the list of books, search text, and input values.
+   - Add Book Function: Appends a new book if both title and author are provided.
+   - Remove Book Function: Deletes a selected book by its index.
+   - Filter Function: Filters the displayed list based on the search input.
+
+2. App.css
+   - Styles the container with borders and padding.
+   - Adds spacing for input fields and buttons.
+   - Styles each book entry as a separate box with a remove button.
+
+Expected Output
+- A Library Management interface with:
+  - Search bar (filter books by title/author).
+  - Input fields to add a new book.
+  - A list of books showing title and author.
+  - A remove button next to each book.
+
+When users type in the search box, only matching books are displayed.
+
+Learning Outcome
+- Practical understanding of React useState hook.
+- Implementing dynamic list rendering with .map().
+- Managing forms and event handling in React.
+- Using filter and array methods for state updates.
