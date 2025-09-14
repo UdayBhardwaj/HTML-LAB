@@ -1,0 +1,32 @@
+
+Experiment 9: Person Class Hierarchy with Student and Teacher Subclasses (React Version)
+
+Title:
+Person Class Hierarchy with Student and Teacher Subclasses
+
+Objective:
+Understand and apply the concept of inheritance in JavaScript (ES6 classes) by creating a base class 
+and extending it into specialized subclasses, and then using these classes inside a React component. 
+This helps build strong foundational skills in object-oriented programming within a modern JavaScript 
+and React context.
+
+Task Description:
+1. Create a base Person class with properties like name and age, and a method to display basic information.
+2. Create a Student subclass that extends Person, adds a property for course, and overrides the displayInfo method.
+3. Create a Teacher subclass that extends Person, adds a property for subject, and overrides the displayInfo method.
+4. Inside a React component (App), create instances of Student and Teacher and render their details 
+   using the displayInfo() method.
+5. The output should be shown dynamically on the web page instead of the console.
+
+Code Summary:
+- Person, Student, and Teacher classes are defined using ES6 syntax.
+- Student and Teacher use the "extends" keyword to inherit from Person.
+- The "super()" function is used to call the parent constructor.
+- Method overriding is applied to display full details of Student and Teacher.
+- In the React App component, objects are created and their displayInfo() methods are called 
+  to render the results in the browser.
+
+Expected Output (on webpage):
+Experiment 9: Person Class Hierarchy
+Student -> Name: Alice, Age: 20, Course: Computer Science
+Teacher -> Name: Mr. John, Age: 40, Subject: Mathematics
