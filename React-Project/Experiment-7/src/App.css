@@ -1,0 +1,43 @@
+:root {
+  --bg: #232323; /* creates  */
+  --title-color: #d9d9d9;
+}
+
+.App {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;        /* center horizontally */
+  padding-top: 60px;         /* distance from top like screenshot */
+  background: var(--bg);
+  box-sizing: border-box;
+  font-family: "Segoe UI", Roboto, Arial, sans-serif;
+}
+
+.title {
+  color: var(--title-color);
+  font-size: 36px;
+  font-weight: 700;
+  margin-bottom: 40px;
+  text-align: center;
+  text-shadow: 0 1px 0 rgba(0,0,0,0.6);
+}
+
+/* center the three cards with  big gaps */
+.product-list {
+  width: 100%;
+  display: flex;
+  justify-content: center; /* centers the row of cards */
+  gap: 60px;               /* spacing between cards */
+  align-items: center;
+  padding: 0 40px;         /* safe padding on small screens */
+  box-sizing: border-box;
+}
+
+/* responsive: wrap on smaller screens */
+@media (max-width: 1100px) {
+  .product-list {
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+}
