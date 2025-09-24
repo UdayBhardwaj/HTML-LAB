@@ -1,0 +1,133 @@
+EXPERIMENT-4.2
+
+
+
+
+
+const express = require("express");
+const app = express();
+const PORT = 3000;----------------------------------------->CODE BLOCK
+
+app.use(express.json());
+
+
+
+
+EXPLANAITON:
+
+Imports the Express.js module.
+------------------------------------------------------------------------------------->EXPLANAITON BLOCK
+Creates an Express app instance app.
+
+Defines the server port as 3000.
+
+app.use(express.json()) allows Express to parse JSON request bodies, so you can access req.body in POST requests.
+
+
+
+app.get("/cards", (req, res) => {
+  res.json(cards);
+});----------------------------------------------------------->CODE BLOCK
+
+
+
+EXPLANAITON:
+
+Handles GET requests to /cards.
+
+Simply returns the full cards array as JSON.
+------------------------------------------------------------------------------------->EXPLANAITON BLOCK
+
+
+app.get("/cards/:id", (req, res) => {
+  const card = cards.find((c) => c.id === parseInt(req.params.id));
+  if (!card) {
+    return res.status(404).json({ message: "Card not found" });
+  }
+  res.json(card);-------------------------------------------------------------------->CODE BLOCK
+
+});
+
+
+EXPLANAITON:
+
+Handles GET requests with a card ID parameter (/cards/1).
+
+parseInt(req.params.id) converts the URL parameter to a number.
+
+find() searches for a card with that ID.
+
+If not found → responds with 404 Not Found.
+---------------------------------------------------------------------------------------->EXPLANATION BLOCK
+If found → returns the card as JSON.
+
+
+
+app.post("/cards", (req, res) => {
+  const { suit, value } = req.body;
+  if (!suit || !value) {
+    return res.status(400).json({ message: "Suit and value are required" });
+  }
+  const newCard = { id: idCounter++, suit, value };
+  cards.push(newCard);
+  res.status(201).json(newCard);--------------------------------------------------------------->CODE BLOCK
+
+});
+
+
+
+
+EXPLANAITON:
+
+Handles POST requests to /cards.
+
+Extracts suit and value from the request body.
+
+Validates input: if either is missing → returns 400 Bad Request.
+
+Creates a new card object with a unique ID (idCounter++).
+
+Adds it to the cards array.
+----------------------------------------------------------------------------------->EXPLANATION BLOCK
+
+Responds with 201 Created and the new card JSON.
+
+
+
+app.delete("/cards/:id", (req, res) => {
+  const index = cards.findIndex((c) => c.id === parseInt(req.params.id));
+  if (index === -1) {
+    return res.status(404).json({ message: "Card not found" });
+  }
+  const removed = cards.splice(index, 1);------------------------------------------------------------->CODE BLOCK
+
+  res.json({ message: "Card deleted", card: removed[0] });
+});
+
+
+EXPLANAITON:
+
+Handles DELETE requests for a specific card ID (/cards/1).
+
+Uses findIndex() to find the card’s position in the array.
+
+If not found → returns 404 Not Found.---------------------------------------------------------------------------------->EXPLANATION BLOCK
+
+If found → removes it from cards with splice() and returns a confirmation message along with the deleted card.
+
+
+
+app.listen(PORT, () => {
+  console.log(`Server running on http://localhost:${PORT}`);
+});---------------------------------------------------------------------------------->CODE BLOCK
+
+
+
+EXPLANAITON:
+
+Starts the Express server on the specified port.
+---------------------------------------------------------------------------------->EXPLANATION BLOCK
+
+Logs a message to confirm the server is running.
+
+After this, the API endpoints are ready to accept requests.

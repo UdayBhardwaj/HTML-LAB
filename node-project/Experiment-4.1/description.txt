@@ -1,0 +1,119 @@
+EXPERIMENT-4.1
+
+
+
+
+const readline = require("readline");
+
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout,
+});
+--------------------------------------------------------> CODE BLOCK
+let employees = [];
+
+
+
+EXPLANAITON:
+
+Imports Node.js readline module for interactive input/output in the terminal.
+
+Creates a readline interface rl to read user input and display output.
+
+Initializes an empty array employees to store employee objects like { id, name }.
+
+This is the foundation for the menu-driven system.--------------------------------------------------->EXPLANAITON BLOCK
+
+
+
+function showMenu() {
+  console.log("\n=== Employee Management System ===");
+  console.log("1. Add Employee");
+  console.log("2. List Employees");----------------------------------------------------->CODE BLOCK
+  console.log("3. Remove Employee");
+  console.log("4. Exit");
+  rl.question("Choose an option: ", handleMenu);
+}
+
+
+
+EXPLANAITON:
+
+Prints a menu with options for the user.--------------------------------------------------->EXPLANAITON BLOCK
+
+rl.question pauses the program to wait for user input, then passes the input to handleMenu.
+
+Provides a simple navigation system for adding, listing, removing employees, or exiting.
+
+
+
+function handleMenu(option) {
+  switch (option.trim()) {
+    case "1":
+      addEmployee();
+      break;
+    case "2":
+      listEmployees();
+      break;
+    case "3":
+      removeEmployee();
+      break;
+    case "4":
+      console.log("Exiting... Goodbye!");
+      rl.close();
+      break;----------------------------------------------------------------------->CODE BLOCK
+    default:
+      console.log("Invalid option. Please try again.");
+      showMenu();
+  }
+}
+
+
+EXPLANAITON:
+
+Receives the user input from the menu.
+
+.trim() removes extra spaces.
+
+Uses switch to call the appropriate function based on user choice:
+
+"1" → addEmployee()
+
+"2" → listEmployees()
+
+"3" → removeEmployee()------------------------------------------------------------------>EXPLANAITON BLOCK
+
+"4" → exits the program with rl.close().
+
+Invalid input loops back to the menu.
+
+
+
+
+
+function removeEmployee() {
+  rl.question("Enter Employee ID to remove: ", (id) => {
+    const index = employees.findIndex((emp) => emp.id === id);
+    if (index !== -1) {
+      const removed = employees.splice(index, 1);
+      console.log(`Removed Employee: ID=${removed[0].id}, Name=${removed[0].name}`);
+    } else {
+      console.log("Employee not found.");
+    }
+    showMenu();------------------------------------------------------------------> CODE BLOCK
+  });
+}
+
+
+
+EXPLANAITON:
+
+Asks for Employee ID to remove.
+
+Uses findIndex to locate the employee in the array.
+
+If found → removes using splice and confirms removal.
+
+If not found → prints “Employee not found.”
+
+Returns to menu afterward.---------------------------------------------------EXPLANAITON BLOCK
