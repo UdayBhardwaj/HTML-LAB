@@ -1,0 +1,164 @@
+Title:
+E-commerce Catalog with Nested Document Structure in MongoDB
+
+
+
+1. server.js
+
+--------------------------------------------------------------------------------------> CODE BLOCK
+const express = require("express");
+const mongoose = require("mongoose");
+const productRoutes = require("./routes/productRoutes");
+
+const app = express();
+const PORT = 3000;
+
+
+app.use(express.json());
+
+
+mongoose.connect("mongodb://127.0.0.1:27017/productdb", {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+})
+.then(() => console.log("✅ MongoDB Connected"))
+.catch(err => console.error(err));
+
+
+app.use("/products", productRoutes);
+
+
+app.listen(PORT, () => console.log(`🚀 Server running at http://localhost:${PORT}`));
+
+
+
+
+EXPLANATION:
+
+Sets up an Express server on port 3000.
+
+Connects to local MongoDB database named productdb.------------------------------------------------------EXPLANATION BLOCK
+
+Uses express.json() middleware to parse JSON request bodies.
+
+Routes for products are handled in a separate file productRoutes.js.
+
+Starts the server and logs a message when ready.
+
+
+
+
+
+const mongoose = require("mongoose");
+
+const productSchema = new mongoose.Schema({
+  name: { type: String, required: true, unique: true, trim: true },
+  price: { type: Number, required: true, min: 0 },
+  category: { type: String, required: true },
+  variants: [
+    {-----------------------------------------------------------------------------------------> CODE BLOCK
+      color: { type: String },
+      size: { type: String },
+      stock: { type: Number, min: 0 }
+    }
+  ]
+}, { timestamps: true });
+
+module.exports = mongoose.model("Product", productSchema);
+
+
+
+
+EXPLANATION:
+
+Defines a Product schema with fields: name, price, category.---------------------------------------------------> EXPLANATION BLOCK
+
+variants is an array of nested documents to store color, size, and stock.
+
+timestamps: true automatically creates createdAt and updatedAt.
+
+unique: true on name ensures no duplicate product names.
+
+
+
+
+
+const express = require("express");
+const Product = require("../models/Product");
+
+const router = express.Router();
+
+--------------------------------------------------------------------------------------------> CODE BLOCK
+router.get("/", async (req, res) => {
+  try {
+    const products = await Product.find();
+    res.json(products);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+
+router.get("/:id", async (req, res) => {
+  try {
+    const product = await Product.findById(req.params.id);
+    if (!product) return res.status(404).json({ message: "Product not found" });
+    res.json(product);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+
+router.post("/", async (req, res) => {
+  try {
+    const product = new Product(req.body);
+    const savedProduct = await product.save();
+    res.status(201).json(savedProduct);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+});
+
+
+router.put("/:id", async (req, res) => {
+  try {
+    const updatedProduct = await Product.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      { new: true, runValidators: true }
+    );
+    if (!updatedProduct) return res.status(404).json({ message: "Product not found" });
+    res.json(updatedProduct);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+});
+
+
+router.delete("/:id", async (req, res) => {
+  try {
+    const deletedProduct = await Product.findByIdAndDelete(req.params.id);
+    if (!deletedProduct) return res.status(404).json({ message: "Product not found" });
+    res.json({ message: "Product deleted successfully", product: deletedProduct });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+module.exports = router;
+
+
+
+
+EXPLANATION:
+
+Handles CRUD operations for products.
+
+Supports nested variants in POST and PUT requests.----------------------------------------------------------->EXPLANATION BLOCK
+
+Returns appropriate HTTP status codes and error messages.
+
+Ensures validation using Mongoose schema rules.
+
+Prevents duplicate product names with the unique constraint.
