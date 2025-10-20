@@ -1,14 +1,9 @@
-
-DESCRIPTION OF EXPERIMENT 17:
-
-
-
-
-
+ESCRIPTION OF EXPERIMENT 17: Implementation of Authentication and Authorization using JWT
 
 A. LOGIN ROUTE (JWT Token Generation):
 
-
+Code:
+------------------------------------------------------------
 app.post('/login', (req, res) => {
   const { username, password } = req.body;
   if (username === user.username && password === user.password) {
@@ -18,28 +13,21 @@ app.post('/login', (req, res) => {
     res.status(401).json({ message: 'Invalid credentials' });
   }
 });
+------------------------------------------------------------
 
+Explanation:
+This route is responsible for user authentication.
+The username and password are hardcoded as admin and password123.
+If the credentials match, a JWT token is generated using jwt.sign() with a validity of 1 hour.
+The token is returned to the client for future authenticated requests.
+Invalid login attempts return a 401 Unauthorized response.
 
-EXPLANATION:
-
-Handles user authentication and token generation.
-
-Username/password are hardcoded: admin / password123.
-
-Generates a JWT token using jwt.sign() with 1-hour expiration.
-
-Returns the token to the client for future authenticated requests.
-
-Invalid credentials return a 401 error.
-
-
-
-
-
+------------------------------------------------------------
 
 B. AUTHENTICATION MIDDLEWARE (Token Verification):
 
-
+Code:
+------------------------------------------------------------
 function authenticateToken(req, res, next) {
   const authHeader = req.headers['authorization'];
   if (!authHeader) return res.status(401).json({ message: 'Token missing' });
@@ -51,68 +39,57 @@ function authenticateToken(req, res, next) {
     next();
   });
 }
+------------------------------------------------------------
 
+Explanation:
+This middleware ensures that only authenticated users can access protected routes.
+It checks for a JWT token in the Authorization header (Bearer <token> format).
+If the token is missing, a 401 response is sent.
+If the token is invalid or expired, a 403 response is returned.
+On successful validation, control passes to the next route handler.
 
-EXPLANATION:
-
-Checks for a JWT token in Authorization: Bearer <token> header.
-
-Returns 401 if token is missing.
-
-Uses jwt.verify() to validate the token.
-
-Returns 403 if token is invalid or expired.
-
-Valid token allows the request to proceed.
-
-
-
-
+------------------------------------------------------------
 
 C. VIEW BALANCE ROUTE:
 
+Code:
+------------------------------------------------------------
 app.get('/balance', authenticateToken, (req, res) => {
   res.json({ balance: account.balance });
 });
+------------------------------------------------------------
 
+Explanation:
+This is a protected route that returns the current account balance.
+It uses the authenticateToken middleware to ensure that only authenticated users can access it.
+If the token is missing or invalid, access is denied.
 
-EXPLANATION:
-
-Protected by authenticateToken.
-
-Returns current account balance for authenticated users only.
-
-Denies access if token is missing or invalid.
-
-
-
+------------------------------------------------------------
 
 D. DEPOSIT MONEY ROUTE:
 
+Code:
+------------------------------------------------------------
 app.post('/deposit', authenticateToken, (req, res) => {
   const { amount } = req.body;
   if (!amount || amount <= 0) return res.status(400).json({ message: 'Invalid deposit amount' });
   account.balance += amount;
   res.json({ message: 'Deposit successful', newBalance: account.balance });
 });
+------------------------------------------------------------
 
+Explanation:
+This route allows authenticated users to deposit money into their account.
+It validates that the amount is greater than 0.
+On success, the deposit amount is added to the balance and a success message is returned.
+Invalid deposit amounts result in a 400 Bad Request response.
 
-EXPLANATION:
-
-Allows authenticated users to deposit money.
-
-Validates the amount (>0).
-
-Adds the amount to the balance and returns success message.
-
-Invalid amounts return 400 Bad Request.
-
-
-
+------------------------------------------------------------
 
 E. WITHDRAW MONEY ROUTE:
 
-
+Code:
+------------------------------------------------------------
 app.post('/withdraw', authenticateToken, (req, res) => {
   const { amount } = req.body;
   if (!amount || amount <= 0) return res.status(400).json({ message: 'Invalid withdrawal amount' });
@@ -120,14 +97,17 @@ app.post('/withdraw', authenticateToken, (req, res) => {
   account.balance -= amount;
   res.json({ message: 'Withdrawal successful', newBalance: account.balance });
 });
+------------------------------------------------------------
 
+Explanation:
+This route allows authenticated users to withdraw money from their account.
+It checks for a positive amount and ensures sufficient balance.
+If valid, it deducts the amount and returns the updated balance.
+Invalid or excessive withdrawal attempts return a 400 Bad Request response.
 
-EXPLANATION:
+------------------------------------------------------------
 
-Allows authenticated users to withdraw money.
-
-Validates positive amount and sufficient balance.
-
-Deducts from balance and returns new balance.
-
-Returns error if amount is invalid or insufficient.
+Summary:
+This experiment demonstrates how to implement authentication and authorization in Node.js using JWT (JSON Web Token).
+Authentication verifies user identity (login), while authorization controls access to protected resources (balance, deposit, withdraw).
+This setup mimics a secure banking system where users must be authenticated before performing transactions.
