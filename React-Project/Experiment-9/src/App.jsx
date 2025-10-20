@@ -34,7 +34,7 @@ class Teacher extends Person {
 }
 
 export default function App() {
-  // Create objects
+  
   const student1 = new Student("Uday ", 20, "Computer Science");
   const teacher1 = new Teacher("Dr Singh", 40, "CS");
 
